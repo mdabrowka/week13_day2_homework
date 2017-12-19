@@ -43,8 +43,21 @@ server.get('/api/potatoes', function(req, res){
   })
 });
 
+server.delete('/api/potatoes', function(req, res){
+  db.collection('potatoes').remove(function(err, result){
+    if(err){
+      console.log(err);
+      console.log(500);
+      res.send();
+      return;
+    }
+    res.status(204);
+    res.send();
+  });
+});
+
 
 server.listen(3000, function(){
   console.log("Listening on port 3000");
-});
+  });
 });
