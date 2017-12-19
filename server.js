@@ -15,4 +15,29 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
   }
   const db = client.db("potatoes");
   console.log("Connected to database");
-})
+
+server.post('/api/potatoes', function(req, res) {
+
+  db.collection('potatoes').insert(req.body, function(err, result) {
+    if(err) {
+      console.log(err);
+      res.status(500);
+      res.send();
+      return;
+    }
+    console.log('Saved to database');
+    res.status(201);
+    res.json(result.ops[0]);
+    });
+  });
+
+  
+
+
+
+});
+
+
+server.listen(3000, function(){
+  console.log("Listening on port 3000");
+  });
