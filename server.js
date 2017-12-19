@@ -31,13 +31,20 @@ server.post('/api/potatoes', function(req, res) {
     });
   });
 
-  
-
-
-
+server.get('/api/potatoes', function(req, res){
+  db.collection('potatoes').find().toArray(function(err, result){
+    if(err) {
+      console.log(err);
+      res.status(500);
+      res.send();
+      return;
+    }
+    res.json(result);
+  })
 });
 
 
 server.listen(3000, function(){
   console.log("Listening on port 3000");
-  });
+});
+});
